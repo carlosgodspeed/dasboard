@@ -96,6 +96,45 @@
 
             return $stmt->fetch(PDO::FETCH_OBJ)->total_vendas;
         }
+
+        public function getClientesAtivos() {
+            $query = '
+                select
+                    count(distinct id_cliente) as clientes_ativos
+                from
+                    tb_vendas
+                where
+                    data_venda between :data_inicio and :data_fim';
+        
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':data_inicio', $this->dashboard->__get('data_inicio'));
+            $stmt->bindValue(':data_fim', $this->dashboard->__get('data_fim'));
+            $stmt->execute();
+        
+            return $stmt->fetch(PDO::FETCH_OBJ)->clientes_ativos;
+        }
+        
+
+        public function getClientesInativos() {
+
+        }
+
+        public function getTotalReclamações() {
+
+        }
+
+        public function getTotalElogios() {
+
+        }
+
+        public function getTotalSugestões() {
+
+        }
+
+        public function getTotalDespesas() {
+
+        }
+
     }
 
     //lógica do script
